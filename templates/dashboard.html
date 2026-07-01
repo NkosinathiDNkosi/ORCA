@@ -255,7 +255,7 @@
     </button>
   </form>
 
-  <form method="POST" action="{{ url_for('delete_appointment', id=appointment['id']) }}" onsubmit="return confirm('Move this enquiry to the bin?')">
+<form method="POST" action="{{ url_for('delete_appointment', appointment_id=appointment['id']) }}" onsubmit="return confirm('Move this enquiry to the bin?')">
     <button class="mini bad">
       Bin
     </button>
