@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>
+        {% block title %}
+          ORCA Carpenters & Projects
+        {% endblock %}
+      </title>
+      <meta name="description" content="Premium custom carpentry, feature walls, TV units, wardrobes, kitchens and renovations by ORCA Carpenters & Projects." />
+      <meta name="theme-color" content="#11100e" />
+      <link rel="preconnect" href="https://fonts.googleapis.com">
+      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    </head>
+    <body>
+      {% block content %}
+      {% endblock %}
+      <a class="whatsapp-float" href="https://wa.me/27827246713?text=Hi%20ORCA%2C%20I%20would%20like%20a%20quote" target="_blank" rel="noopener" aria-label="Chat with ORCA on WhatsApp">
+      <svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+        <path d="M16.03 3.2c-7.02 0-12.72 5.64-12.72 12.6 0 2.22.59 4.39 1.7 6.3L3.2 28.8l6.9-1.8a12.9 12.9 0 0 0 5.93 1.5c7.02 0 12.72-5.64 12.72-12.6S23.05 3.2 16.03 3.2Zm0 22.96c-1.93 0-3.82-.53-5.46-1.53l-.39-.23-4.09 1.07 1.09-3.94-.26-.41a10.2 10.2 0 0 1-1.58-5.32c0-5.66 4.8-10.27 10.69-10.27s10.69 4.61 10.69 10.27-4.8 10.36-10.69 10.36Zm5.86-7.75c-.32-.16-1.9-.93-2.2-1.04-.29-.11-.5-.16-.72.16-.21.32-.82 1.04-1.01 1.25-.19.21-.37.24-.69.08-.32-.16-1.35-.49-2.58-1.58-.95-.84-1.6-1.88-1.79-2.2-.19-.32-.02-.49.14-.65.14-.14.32-.37.48-.56.16-.19.21-.32.32-.53.11-.21.05-.4-.03-.56-.08-.16-.72-1.72-.99-2.36-.26-.62-.52-.54-.72-.55h-.61c-.21 0-.56.08-.85.4-.29.32-1.12 1.09-1.12 2.66s1.15 3.09 1.31 3.3c.16.21 2.27 3.43 5.5 4.8.77.33 1.37.53 1.84.68.77.24 1.47.21 2.03.13.62-.09 1.9-.77 2.17-1.52.27-.75.27-1.39.19-1.52-.08-.13-.29-.21-.61-.37Z"/>
+      </svg>
+      <span>WhatsApp</span>
+      </a>
+      <button id="scrollTop" class="scroll-top" aria-label="Scroll to top">
+        ↑
+      </button>
+      <script src="{{ url_for('static', filename='script.js') }}">
+      </script>
+    </body>
+  </html>

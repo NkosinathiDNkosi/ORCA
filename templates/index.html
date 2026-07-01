@@ -1,0 +1,503 @@
+{% extends "base.html" %}
+{% block content %}
+  <header class="site-header" id="top">
+    <a class="brand" href="#top">
+    <img src="{{ url_for('static', filename='logo.jpg') }}" alt="ORCA logo">
+    <span>
+    <strong>ORCA</strong>
+    <small>Building it right</small>
+    </span>
+    </a>
+    <button class="menu-toggle" aria-label="Open menu">
+      <span>
+      </span>
+      <span>
+      </span>
+    </button>
+    <nav class="nav-panel" aria-label="Main navigation">
+      <a href="#services">
+      Services
+      </a>
+      <a href="#work">
+      Work
+      </a>
+      <a href="#process">
+      Process
+      </a>
+      <a href="#booking">
+      Book
+      </a>
+      <a class="nav-cta" href="https://wa.me/27827246713?text=Hi%20ORCA%2C%20I%20would%20like%20a%20quote" target="_blank">
+      WhatsApp Quote
+      </a>
+    </nav>
+  </header>
+  <section class="hero">
+    <div class="hero-bg">
+    </div>
+    <div class="hero-shade">
+    </div>
+    <div class="mobile-hero-visual" aria-hidden="true">
+      <div class="hero-card mobile-signature-card">
+        <img src="{{ url_for('static', filename='gallery1.jpg') }}" alt="Completed ORCA interior project">
+        <div>
+          <span>Signature finish</span>
+          <strong>Warm lighting, clean panels, custom detail.</strong>
+        </div>
+      </div>
+    </div>
+    <div class="hero-card desktop-signature-card">
+      <img src="{{ url_for('static', filename='gallery1.jpg') }}" alt="Completed ORCA interior project">
+      <div>
+        <span>Signature finish</span>
+        <strong>Warm lighting, clean panels, custom detail.</strong>
+      </div>
+    </div>
+    <div class="hero-content">
+      <p class="eyebrow">
+        Custom carpentry • TV units • Renovations
+      </p>
+      <h1>
+        Luxury built-ins for homes that deserve better.
+      </h1>
+      <p class="hero-copy">
+        ORCA designs and installs feature walls, fitted storage, TV units and premium finishing work with clean detail and dependable workmanship.
+      </p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#booking">
+        Request a Quote
+        </a>
+        <a class="btn glass" href="#work">
+        View Projects
+        </a>
+      </div>
+      <div class="trust-row">
+        <div>
+          <strong>450+</strong>
+          <span>projects</span>
+        </div>
+        <div>
+          <strong>8+</strong>
+          <span>years</span>
+        </div>
+        <div>
+          <strong>100%</strong>
+          <span>quality focus</span>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section intro-strip">
+    <p>
+      Made for homeowners who want their space to look intentional, modern and complete.
+    </p>
+  </section>
+  <section class="section services" id="services">
+    <div class="section-head">
+      <p class="eyebrow dark">
+        What we build
+      </p>
+      <h2>
+        Services that upgrade the whole room.
+      </h2>
+    </div>
+    <div class="service-grid">
+      <article>
+        <span>01</span>
+        <h3>
+          TV Units & Feature Walls
+        </h3>
+        <p>
+          Modern wall units, floating shelves, lighting details and clean panel finishes.
+        </p>
+      </article>
+      <article>
+        <span>02</span>
+        <h3>
+          Wardrobes & Storage
+        </h3>
+        <p>
+          Fitted cupboards, closet systems and storage that looks built into the room.
+        </p>
+      </article>
+      <article>
+        <span>03</span>
+        <h3>
+          Kitchens & Cabinets
+        </h3>
+        <p>
+          Cabinetry, doors, counters, repairs and practical layouts with premium finishes.
+        </p>
+      </article>
+      <article>
+        <span>04</span>
+        <h3>
+          Renovations
+        </h3>
+        <p>
+          Room upgrades, finishing work, repairs and improvements handled neatly.
+        </p>
+      </article>
+    </div>
+  </section>
+  <section class="showcase" id="work">
+    <div class="showcase-text">
+      <p class="eyebrow">
+        Featured look
+      </p>
+      <h2>
+        From plain wall to statement piece.
+      </h2>
+      <p>
+        We focus on proportions, lighting, material matching and finish quality so the final result feels expensive without looking overdone.
+      </p>
+      <a class="btn primary" href="#booking">
+      Start Your Project
+      </a>
+    </div>
+    <div class="phone-gallery">
+      <img src="{{ url_for('static', filename='img1.jpg') }}" alt="ORCA project image">
+      <img src="{{ url_for('static', filename='img8.jpg') }}" alt="ORCA project image">
+      <img src="{{ url_for('static', filename='gallery2.jpg') }}" alt="ORCA project image">
+    </div>
+  </section>
+  <section class="section gallery-band">
+    <div class="gallery-track">
+      {% for img in ['gallery1.jpg','gallery2.jpg','gallery3.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'] %}
+        <img src="{{ url_for('static', filename=img) }}" alt="ORCA carpentry gallery image">
+      {% endfor %}
+    </div>
+  </section>
+  <section class="section process" id="process">
+    <div class="section-head">
+      <p class="eyebrow dark">
+        Simple process
+      </p>
+      <h2>
+        See how ORCA brings the work together.
+      </h2>
+    </div>
+    <div class="steps">
+      <div>
+        <b>
+        1
+        </b>
+        <h3>
+          Consult
+        </h3>
+        <p>
+          Tell us what you want, share measurements or pictures, and we discuss the best direction.
+        </p>
+      </div>
+      <div>
+        <b>
+        2
+        </b>
+        <h3>
+          Plan
+        </h3>
+        <p>
+          We confirm finishes, timing and the quote before anything starts.
+        </p>
+      </div>
+      <div>
+        <b>
+        3
+        </b>
+        <h3>
+          Build
+        </h3>
+        <p>
+          Installation is handled neatly, with attention to the final details.
+        </p>
+      </div>
+    </div>
+    <div class="process-video-intro">
+      <p class="eyebrow dark">
+        Work in action
+      </p>
+      <h3>
+        Procedure videos
+      </h3>
+      <p>
+        Short clips showing the fitting, alignment, lighting and finishing process behind ORCA's custom furniture work.
+      </p>
+    </div>
+    <div class="process-video-grid">
+      <article class="process-video-card">
+        <div class="process-video-frame">
+          <video controls muted playsinline preload="metadata">
+            <source src="{{ url_for('static', filename='WhatsApp Video 2026-06-28 at 18.44.48.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="process-video-copy">
+          <span>01</span>
+          <h4>
+            Panel fitting
+          </h4>
+          <p>
+            Showing the feature wall panels and storage spaces being checked for neat alignment.
+          </p>
+        </div>
+      </article>
+      <article class="process-video-card">
+        <div class="process-video-frame">
+          <video controls muted playsinline preload="metadata">
+            <source src="{{ url_for('static', filename='WhatsApp Video 2026-06-28 at 18.52.25.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="process-video-copy">
+          <span>02</span>
+          <h4>
+            Lighting detail
+          </h4>
+          <p>
+            Warm LED lighting and display shelves are tested so the finish feels premium.
+          </p>
+        </div>
+      </article>
+      <article class="process-video-card">
+        <div class="process-video-frame">
+          <video controls muted playsinline preload="metadata">
+            <source src="{{ url_for('static', filename='WhatsApp Video 2026-06-28 at 18.54.04 (1).mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="process-video-copy">
+          <span>03</span>
+          <h4>
+            On-site setup
+          </h4>
+          <p>
+            The team prepares and checks the working area before installation continues.
+          </p>
+        </div>
+      </article>
+      <article class="process-video-card">
+        <div class="process-video-frame">
+          <video controls muted playsinline preload="metadata">
+            <source src="{{ url_for('static', filename='WhatsApp Video 2026-06-28 at 18.54.04.mp4') }}" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        <div class="process-video-copy">
+          <span>04</span>
+          <h4>
+            Cabinet build
+          </h4>
+          <p>
+            Custom cabinet sections are assembled and inspected before final placement.
+          </p>
+        </div>
+      </article>
+    </div>
+  </section>
+  <section class="booking" id="booking">
+    <div class="booking-copy">
+      <p class="eyebrow">
+        Book a consultation
+      </p>
+      <h2>
+        Ready to make your space look complete?
+      </h2>
+      <p>
+        Fill in the form and ORCA will get back to you about your project.
+      </p>
+      {% if success %}
+        <div class="alert success">
+          {{ success }}
+        </div>
+      {% endif %}
+      {% if error %}
+        <div class="alert error">
+          {{ error }}
+        </div>
+      {% endif %}
+    </div>
+    <form action="{{ url_for('book') }}" method="POST" class="booking-form">
+      <label>
+      Full name
+      <input name="full_name" type="text" required placeholder="Your full name">
+      </label>
+      <label>
+      Phone
+      <input name="phone" type="tel" required placeholder="071 234 5678">
+      </label>
+      <label>
+      Email
+      <input name="email" type="email" required placeholder="you@example.com">
+      </label>
+      <label>
+      Service
+      <select name="service" required>
+        <option value="">
+        Select service
+        </option>
+        <option>
+        TV Unit / Feature Wall
+        </option>
+        <option>
+        Wardrobes / Storage
+        </option>
+        <option>
+        Kitchen / Cabinets
+        </option>
+        <option>
+        Renovation / Repairs
+        </option>
+      </select>
+      </label>
+      <label>
+      Date
+      <input name="appointment_date" type="date" required>
+      </label>
+      <label>
+      Time
+      <select name="appointment_time" required>
+        <option value="">
+        Select time
+        </option>
+        <option>
+        09:00
+        </option>
+        <option>
+        10:00
+        </option>
+        <option>
+        11:00
+        </option>
+        <option>
+        12:00
+        </option>
+        <option>
+        14:00
+        </option>
+        <option>
+        15:00
+        </option>
+      </select>
+      </label>
+      <label class="full">
+      Project details
+      <textarea name="message" rows="4" placeholder="Tell us about your wall, room, finishes or budget range.">
+      </textarea>
+      </label>
+      <button class="btn primary full" type="submit">
+        Send Booking Request
+      </button>
+    </form>
+  </section>
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <img src="{{ url_for('static', filename='logo.jpg') }}" alt="ORCA logo">
+        <p>
+          Crafting premium custom furniture and interior spaces with precision, quality and attention to detail.
+        </p>
+      </div>
+      <div class="footer-column">
+        <h3>
+          Quick Links
+        </h3>
+        <a href="#home">
+        Home
+        </a>
+        <a href="#about">
+        About
+        </a>
+        <a href="#services">
+        Services
+        </a>
+        <a href="#projects">
+        Projects
+        </a>
+        <a href="#gallery">
+        Gallery
+        </a>
+        <a href="#contact">
+        Contact
+        </a>
+      </div>
+      <div class="footer-column">
+        <h3>
+          Our Services
+        </h3>
+        <a href="#services">
+        TV Units
+        </a>
+        <a href="#services">
+        Feature Walls
+        </a>
+        <a href="#services">
+        Wardrobes
+        </a>
+        <a href="#services">
+        Kitchen Cabinets
+        </a>
+        <a href="#services">
+        Ceiling Designs
+        </a>
+        <a href="#services">
+        Office Furniture
+        </a>
+      </div>
+      <div class="footer-column">
+        <h3>
+          Contact
+        </h3>
+        <p>
+          <i class="fa-solid fa-phone">
+          </i>
+          +27 82 724 6713
+        </p>
+        <p>
+          <i class="fa-solid fa-envelope">
+          </i>
+          mabelanephomelelo6@gmail.com
+        </p>
+        <p>
+          <i class="fa-solid fa-location-dot">
+          </i>
+          Steelpoort, Limpopo
+        </p>
+        <p>
+          <i class="fa-solid fa-clock">
+          </i>
+          Mon - Fri: 08:00 - 17:00
+        </p>
+      </div>
+      <div class="footer-social">
+        <h3>
+          Follow Us
+        </h3>
+        <div class="social-icons">
+          <a href="https://www.facebook.com/profile.php?id=61573302462403" target="_blank" aria-label="Facebook">
+          <i class="fa-brands fa-facebook-f">
+          </i>
+          </a>
+          <a href="https://www.tiktok.com/@orca.carpenters.a?_r=1&_t=ZS-97XVb2cx2Wt" target="_blank" aria-label="TikTok">
+          <i class="fa-brands fa-tiktok">
+          </i>
+          </a>
+          <a href="https://wa.me/27827246713" target="_blank" aria-label="WhatsApp">
+          <i class="fa-brands fa-whatsapp">
+          </i>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>
+        © 2026 ORCA Furniture. All Rights Reserved.
+      </p>
+      <p>
+        Designed & Developed by
+        <a href="#">
+        Nkosinathi Nkosi
+        </a>
+      </p>
+    </div>
+  </footer>
+{% endblock %}
