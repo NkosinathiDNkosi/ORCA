@@ -234,30 +234,33 @@
                       </td>
                       <td>
                         <div class="row-actions">
-                          <form method="POST" action="{{ url_for('update_status', id=appointment['id']) }}">
-                            <input type="hidden" name="status" value="Confirmed">
-                            <button class="mini good">
-                              Confirm
-                            </button>
-                          </form>
-                          <form method="POST" action="{{ url_for('update_status', id=appointment['id']) }}">
-                            <input type="hidden" name="status" value="Completed">
-                            <button class="mini good">
-                              Complete
-                            </button>
-                          </form>
-                          <form method="POST" action="{{ url_for('update_status', id=appointment['id']) }}">
-                            <input type="hidden" name="status" value="Cancelled">
-                            <button class="mini warn">
-                              Cancel
-                            </button>
-                          </form>
-                          <form method="POST" action="{{ url_for('delete_appointment', id=appointment['id']) }}" onsubmit="return confirm('Move this enquiry to the bin?')">
-                            <button class="mini bad">
-                              Bin
-                            </button>
-                          </form>
-                        </div>
+  <form method="POST" action="{{ url_for('update_status', appointment_id=appointment['id']) }}">
+    <input type="hidden" name="status" value="Confirmed">
+    <button class="mini good">
+      Confirm
+    </button>
+  </form>
+
+  <form method="POST" action="{{ url_for('update_status', appointment_id=appointment['id']) }}">
+    <input type="hidden" name="status" value="Completed">
+    <button class="mini good">
+      Complete
+    </button>
+  </form>
+
+  <form method="POST" action="{{ url_for('update_status', appointment_id=appointment['id']) }}">
+    <input type="hidden" name="status" value="Cancelled">
+    <button class="mini warn">
+      Cancel
+    </button>
+  </form>
+
+  <form method="POST" action="{{ url_for('delete_appointment', id=appointment['id']) }}" onsubmit="return confirm('Move this enquiry to the bin?')">
+    <button class="mini bad">
+      Bin
+    </button>
+  </form>
+</div>
                       </td>
                     </tr>
                   {% else %}
