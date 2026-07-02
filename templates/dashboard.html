@@ -34,7 +34,7 @@
             📊 Dashboard
             </a>
             <a href="{{ url_for('bin_page') }}">
-            🗑️ Bin
+            🗑️ Trash
             </a>
             <a href="{{ url_for('change_password') }}">
             🔐 Security
@@ -68,7 +68,7 @@
               View Website
               </a>
               <a class="btn" href="{{ url_for('bin_page') }}">
-              Open Bin
+              Open Trash
               </a>
               <a class="btn red" href="{{ url_for('logout') }}">
               Logout
@@ -257,7 +257,7 @@
 
 <form method="POST" action="{{ url_for('delete_appointment', appointment_id=appointment['id']) }}" onsubmit="return confirm('Move this enquiry to the bin?')">
     <button class="mini bad">
-      Bin
+      Trash
     </button>
   </form>
 </div>
