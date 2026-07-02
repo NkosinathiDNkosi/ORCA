@@ -7,18 +7,11 @@ from datetime import timedelta, datetime
 
 app = Flask(__name__)
 
-# ============================================================
-# APP CONFIG
-# ============================================================
 app.secret_key = "change_this_to_a_long_random_secret"
 app.permanent_session_lifetime = timedelta(minutes=30)
 
-# ============================================================
-# DATABASE CONNECTION
-# ============================================================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-DB_PATH = os.path.join(BASE_DIR, "..", "orca_projects.db")
-DB_PATH = os.path.abspath(DB_PATH)
+DB_PATH = os.path.abspath(os.path.join(BASE_DIR, "..", "orca_projects.db"))
 
 print("Using DB:", DB_PATH)
 
@@ -27,9 +20,6 @@ def get_db_connection():
     conn.row_factory = sqlite3.Row
     return conn
 
-# ============================================================
-# CREATE ADMIN USER
-# ============================================================
 def create_admin():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -42,13 +32,10 @@ def create_admin():
         )
     """)
 
-    username = "admin"
-    password = generate_password_hash("admin123")
-
     try:
         cursor.execute(
             "INSERT INTO users (username, password) VALUES (?, ?)",
-            (username, password)
+            ("admin", generate_password_hash("admin123"))
         )
         conn.commit()
     except sqlite3.IntegrityError:
@@ -56,9 +43,6 @@ def create_admin():
 
     conn.close()
 
-# ============================================================
-# ENSURE APPOINTMENTS TABLE + COLUMNS EXIST
-# ============================================================
 def ensure_appointments_table():
     conn = get_db_connection()
     cursor = conn.cursor()
@@ -91,7 +75,6 @@ def ensure_status_column():
 
     if "status" not in columns:
         cursor.execute("ALTER TABLE appointments ADD COLUMN status TEXT DEFAULT 'Pending'")
-        print("Status column added to appointments table.")
 
     conn.commit()
     conn.close()
@@ -105,37 +88,27 @@ def ensure_bin_columns():
 
     if "is_deleted" not in columns:
         cursor.execute("ALTER TABLE appointments ADD COLUMN is_deleted INTEGER DEFAULT 0")
-        print("is_deleted column added.")
 
     if "deleted_at" not in columns:
         cursor.execute("ALTER TABLE appointments ADD COLUMN deleted_at TEXT")
-        print("deleted_at column added.")
 
     conn.commit()
     conn.close()
 
-# ============================================================
-# LOGIN CHECK
-# ============================================================
 @app.before_request
 def require_login():
     allowed = {"login", "static"}
+
     if request.endpoint in allowed or request.endpoint is None:
         return
 
     if "user" not in session:
         return redirect(url_for("login"))
 
-# ============================================================
-# ROUTES
-# ============================================================
 @app.route("/")
 def home():
     return redirect(url_for("login"))
 
-# -------------------------
-# LOGIN
-# -------------------------
 @app.route("/login", methods=["GET", "POST"])
 def login():
     error = None
@@ -172,25 +145,19 @@ def login():
             </body>
             </html>
             """
-        else:
-            error = "Invalid username or password."
+
+        error = "Invalid username or password."
 
     if request.method == "GET":
         session.clear()
 
     return render_template("login.html", error=error, message=message)
 
-# -------------------------
-# LOGOUT
-# -------------------------
 @app.route("/logout")
 def logout():
     session.clear()
     return redirect(url_for("login"))
 
-# -------------------------
-# CHANGE PASSWORD
-# -------------------------
 @app.route("/change-password", methods=["GET", "POST"])
 def change_password():
     error = None
@@ -219,23 +186,21 @@ def change_password():
                 error="Current password is incorrect."
             )
 
-        new_hashed = generate_password_hash(new_password)
-
         conn.execute(
             "UPDATE users SET password = ? WHERE username = ?",
-            (new_hashed, session["user"])
+            (generate_password_hash(new_password), session["user"])
         )
         conn.commit()
         conn.close()
 
         session.clear()
-        return redirect(url_for("login", message="Password updated successfully. Please log in again."))
+        return redirect(url_for(
+            "login",
+            message="Password updated successfully. Please log in again."
+        ))
 
     return render_template("change_password.html", error=error, success=success)
 
-# -------------------------
-# DASHBOARD
-# -------------------------
 @app.route("/dashboard")
 def dashboard():
     conn = get_db_connection()
@@ -248,11 +213,8 @@ def dashboard():
 
     return render_template("dashboard.html", appointments=appointments)
 
-# -------------------------
-# BIN VIEW
-# -------------------------
-@app.route("/bin")
-def bin_view():
+@app.route("/admin/trash")
+def bin_page():
     conn = get_db_connection()
     deleted = conn.execute("""
         SELECT * FROM appointments
@@ -263,94 +225,84 @@ def bin_view():
 
     return render_template("bin.html", appointments=deleted)
 
-# -------------------------
-# CONFIRM APPOINTMENT
-# -------------------------
-@app.route("/confirm/<int:id>")
-def confirm_appointment(id):
+@app.route("/bin")
+def old_bin_redirect():
+    return redirect(url_for("bin_page"))
+
+@app.route("/confirm/<int:appointment_id>")
+def confirm_appointment(appointment_id):
     conn = get_db_connection()
     conn.execute(
         "UPDATE appointments SET status = 'Confirmed' WHERE id = ?",
-        (id,)
+        (appointment_id,)
     )
     conn.commit()
     conn.close()
 
     return redirect(url_for("dashboard"))
 
-
-# -------------------------
-# UPDATE STATUS
-# -------------------------
-@app.route("/status/<int:id>", methods=["POST"])
-def update_status(id):
+@app.route("/status/<int:appointment_id>", methods=["POST"])
+def update_status(appointment_id):
     status = request.form.get("status", "Pending")
     allowed_statuses = {"Pending", "Confirmed", "Completed", "Cancelled"}
+
     if status not in allowed_statuses:
         status = "Pending"
 
     conn = get_db_connection()
-    conn.execute("UPDATE appointments SET status = ? WHERE id = ?", (status, id))
+    conn.execute(
+        "UPDATE appointments SET status = ? WHERE id = ?",
+        (status, appointment_id)
+    )
     conn.commit()
     conn.close()
 
     return redirect(url_for("dashboard"))
 
-# -------------------------
-# DELETE -> MOVE TO BIN
-# -------------------------
-@app.route("/delete/<int:id>", methods=["GET", "POST"])
-def delete_appointment(id):
+@app.route("/delete/<int:appointment_id>", methods=["GET", "POST"])
+def delete_appointment(appointment_id):
     conn = get_db_connection()
     conn.execute("""
         UPDATE appointments
         SET is_deleted = 1,
             deleted_at = ?
         WHERE id = ?
-    """, (datetime.now().isoformat(timespec="seconds"), id))
+    """, (datetime.now().isoformat(timespec="seconds"), appointment_id))
     conn.commit()
     conn.close()
 
     return redirect(url_for("dashboard"))
 
-# -------------------------
-# RESTORE FROM BIN
-# -------------------------
-@app.route("/restore/<int:id>", methods=["GET", "POST"])
-def restore_appointment(id):
+@app.route("/restore/<int:appointment_id>", methods=["GET", "POST"])
+def restore_appointment(appointment_id):
     conn = get_db_connection()
     conn.execute("""
         UPDATE appointments
         SET is_deleted = 0,
             deleted_at = NULL
         WHERE id = ?
-    """, (id,))
+    """, (appointment_id,))
     conn.commit()
     conn.close()
 
-    return redirect(url_for("bin_view"))
+    return redirect(url_for("bin_page"))
 
-# -------------------------
-# PERMANENT DELETE
-# -------------------------
-@app.route("/purge/<int:id>", methods=["GET", "POST"])
-def purge_appointment(id):
+@app.route("/purge/<int:appointment_id>", methods=["GET", "POST"])
+def purge_appointment(appointment_id):
     conn = get_db_connection()
     conn.execute(
         "DELETE FROM appointments WHERE id = ? AND COALESCE(is_deleted, 0) = 1",
-        (id,)
+        (appointment_id,)
     )
     conn.commit()
     conn.close()
 
-    return redirect(url_for("bin_view"))
+    return redirect(url_for("bin_page"))
 
-# ============================================================
-# RUN APP
-# ============================================================
+create_admin()
+ensure_appointments_table()
+ensure_status_column()
+ensure_bin_columns()
+
 if __name__ == "__main__":
-    create_admin()
-    ensure_appointments_table()
-    ensure_status_column()
-    ensure_bin_columns()
     app.run(debug=True)
