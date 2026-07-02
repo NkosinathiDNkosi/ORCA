@@ -315,7 +315,7 @@ def dashboard():
     return render_template("dashboard.html", appointments=appointments)
 
 
-@app.route("/bin")
+@app.route("/admin/trash")
 def bin_page():
     if not admin_required():
         return redirect(url_for("login"))
@@ -330,6 +330,11 @@ def bin_page():
     conn.close()
 
     return render_template("bin.html", appointments=appointments)
+
+
+@app.route("/bin")
+def old_bin_redirect():
+    return redirect(url_for("bin_page"))
 
 
 @app.route("/restore-appointment/<int:appointment_id>", methods=["POST"])
