@@ -120,12 +120,12 @@
                   </td>
                   <td>
                     <div class="row-actions">
-                      <form method="POST" action="{{ url_for('restore_appointment', id=appointment['id']) }}">
+                      <form method="POST" action="{{ url_for('restore_appointment', appointment_id=appointment['id']) }}
                         <button class="green">
                           Restore
                         </button>
                       </form>
-                      <form method="POST" action="{{ url_for('purge_appointment', id=appointment['id']) }}" onsubmit="return confirm('Delete this appointment permanently?')">
+                      <form method="POST" action="{{ url_for('purge_appointment', appointment_id=appointment['id']) }}" onsubmit="return confirm('Delete this appointment permanently?')">
                         <button class="red">
                           Delete Forever
                         </button>
@@ -136,7 +136,7 @@
               {% else %}
                 <tr>
                   <td colspan="11" class="empty">
-                    No deleted appointments in the bin.
+                    No deleted appointments in the trash.
                   </td>
                 </tr>
               {% endfor %}
