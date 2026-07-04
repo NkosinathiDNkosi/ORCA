@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>
+        ORCA Admin | Bin
+      </title>
+      <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+      <style>
+        :root{--bg:#0b0b0d;--line:rgba(255,255,255,.12);--muted:#a1a1aa;--red:#d32f2f;--green:#22c55e;--gold:#c7924b}*{box-sizing:border-box}body{margin:0;font-family:Manrope,sans-serif;background:radial-gradient(circle at 10% 5%,rgba(211,47,47,.22),transparent 30%),linear-gradient(135deg,#070709,#141416);min-height:100vh;color:#fff;padding:28px}.card{max-width:1350px;margin:auto;border:1px solid var(--line);background:rgba(255,255,255,.075);backdrop-filter:blur(20px);border-radius:30px;padding:24px;box-shadow:0 25px 90px rgba(0,0,0,.28)}.top{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-bottom:20px}.brand{display:flex;gap:14px;align-items:center}.brand img{width:92px;height:58px;border-radius:16px;object-fit:contain;object-position:center;background:#050505;padding:5px;border:1px solid rgba(255,255,255,.12)}.kicker{margin:0 0 6px;color:var(--gold);font-size:.78rem;font-weight:900;letter-spacing:.22em;text-transform:uppercase}h1{margin:0;font-size:2rem;letter-spacing:-.04em}p{color:var(--muted);margin:7px 0 0}.actions{display:flex;gap:10px;flex-wrap:wrap}.btn,button{border:0;border-radius:14px;padding:12px 15px;font-weight:900;cursor:pointer;text-decoration:none;color:white;background:rgba(255,255,255,.1);border:1px solid var(--line)}button.green{background:rgba(34,197,94,.22)}button.red{background:rgba(211,47,47,.25)}.table-wrap{overflow:auto;border-radius:24px;border:1px solid var(--line)}table{width:100%;min-width:1250px;border-collapse:collapse}th{background:#101014;color:white;text-align:left;padding:16px;font-size:.82rem;text-transform:uppercase;letter-spacing:.05em}td{padding:16px;border-top:1px solid rgba(255,255,255,.08);color:#e4e4e7;white-space:nowrap}.name{font-weight:900}.details-cell{min-width:240px;max-width:340px;white-space:normal;line-height:1.55;color:#e4e4e7}.details-box{padding:10px 12px;border-radius:14px;background:rgba(199,146,75,.12);border:1px solid rgba(199,146,75,.25)}.details-box strong{display:block;color:var(--gold);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:4px}.details-empty{color:var(--muted);font-style:italic}.row-actions{display:flex;gap:8px}.empty{text-align:center;color:var(--muted);padding:34px}@media(max-width:700px){body{padding:16px}.actions,.row-actions{width:100%;flex-direction:column}.btn,button{width:100%}}
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <div class="top">
+          <div class="brand">
+            <img src="{{ url_for('static', filename='logo.jpg') }}" alt="ORCA logo">
+            <div>
+              <p class="kicker">
+                Recovered items
+              </p>
+              <h1>
+                Appointment Bin
+              </h1>
+              <p>
+                Restore archived enquiries or permanently remove old records.
+              </p>
+            </div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="{{ url_for('dashboard') }}">
+            ← Back to Dashboard
+            </a>
+            <a class="btn" href="{{ url_for('logout') }}">
+            Logout
+            </a>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  No.
+                </th>
+                <th>
+                  Client
+                </th>
+                <th>
+                  Phone
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Service
+                </th>
+                <th>
+                  Date
+                </th>
+                <th>
+                  Time
+                </th>
+                <th>
+                  Project Details
+                </th>
+                <th>
+                  Status
+                </th>
+                <th>
+                  Deleted At
+                </th>
+                <th>
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for appointment in appointments %}
+                <tr>
+                  <td>
+                    {{ loop.index }}
+                  </td>
+                  <td class="name">
+                    {{ appointment['full_name'] }}
+                  </td>
+                  <td>
+                    {{ appointment['phone'] }}
+                  </td>
+                  <td>
+                    {{ appointment['email'] }}
+                  </td>
+                  <td>
+                    {{ appointment['service'] }}
+                  </td>
+                  <td>
+                    {{ appointment['appointment_date'] }}
+                  </td>
+                  <td>
+                    {{ appointment['appointment_time'] }}
+                  </td>
+                  <td class="details-cell">
+                    {% if appointment['message'] %}
+                      <div class="details-box">
+                        <strong>Client message</strong>
+                        {{ appointment['message'] }}
+                      </div>
+                    {% else %}
+                      <span class="details-empty">
+                      No extra project details added.
+                      </span>
+                    {% endif %}
+                  </td>
+                  <td>
+                    {{ appointment['status'] }}
+                  </td>
+                  <td>
+                    {{ appointment['deleted_at'] }}
+                  </td>
+                  <td>
+                    <div class="row-actions">
+                      <form method="POST" action="{{ url_for('restore_appointment', id=appointment['id']) }}">
+                        <button class="green">
+                          Restore
+                        </button>
+                      </form>
+                      <form method="POST" action="{{ url_for('purge_appointment', id=appointment['id']) }}" onsubmit="return confirm('Delete this appointment permanently?')">
+                        <button class="red">
+                          Delete Forever
+                        </button>
+                      </form>
+                    </div>
+                  </td>
+                </tr>
+              {% else %}
+                <tr>
+                  <td colspan="11" class="empty">
+                    No deleted appointments in the bin.
+                  </td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </body>
+  </html>

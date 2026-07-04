@@ -5,11 +5,57 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       <title>
         {% block title %}
-          ORCA Carpenters & Projects
+          ORCA Projects | Built-in Cupboards, TV Units & Home Renovations in Steelpoort
         {% endblock %}
       </title>
-      <meta name="description" content="Premium custom carpentry, feature walls, TV units, wardrobes, kitchens and renovations by ORCA Carpenters & Projects." />
+      <meta name="description" content="ORCA Projects designs and installs built-in cupboards, TV units, feature walls, wardrobes, kitchens and home renovation finishes in Steelpoort, Burgersfort and surrounding Limpopo areas." />
+      <meta name="keywords" content="ORCA Projects, built-in cupboards Steelpoort, TV units Steelpoort, feature walls Steelpoort, wardrobes Burgersfort, kitchen cupboards Limpopo, home renovations Steelpoort" />
+      <meta name="robots" content="index, follow" />
+      <link rel="canonical" href="https://orcaprojects.co.za/" />
       <meta name="theme-color" content="#11100e" />
+
+      <meta property="og:type" content="website" />
+      <meta property="og:title" content="ORCA Projects | Built-in Cupboards, TV Units & Renovations in Steelpoort" />
+      <meta property="og:description" content="Custom carpentry, TV units, feature walls, fitted wardrobes, kitchens and premium home renovation finishes around Steelpoort, Burgersfort and Limpopo." />
+      <meta property="og:url" content="https://orcaprojects.co.za/" />
+      <meta property="og:image" content="{{ url_for('static', filename='hero.jpg', _external=True) }}" />
+      <meta property="og:site_name" content="ORCA Projects" />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content="ORCA Projects | Built-in Cupboards & Renovations in Steelpoort" />
+      <meta name="twitter:description" content="Built-in cupboards, TV units, feature walls, fitted wardrobes and home renovation finishes in Steelpoort, Burgersfort and Limpopo." />
+      <meta name="twitter:image" content="{{ url_for('static', filename='hero.jpg', _external=True) }}" />
+
+      <link rel="icon" href="{{ url_for('static', filename='logo.jpg') }}" />
+      <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "HomeAndConstructionBusiness",
+        "name": "ORCA Projects",
+        "url": "https://orcaprojects.co.za/",
+        "logo": "{{ url_for('static', filename='logo.jpg', _external=True) }}",
+        "image": "{{ url_for('static', filename='hero.jpg', _external=True) }}",
+        "description": "ORCA Projects provides custom carpentry, built-in cupboards, TV units, feature walls, fitted wardrobes, kitchens and home renovation finishes in Steelpoort, Burgersfort and surrounding Limpopo areas.",
+        "telephone": "+27827246713",
+        "areaServed": [
+          "Steelpoort",
+          "Burgersfort",
+          "Limpopo",
+          "Sekhukhune"
+        ],
+        "serviceType": [
+          "Built-in cupboards",
+          "TV units",
+          "Feature walls",
+          "Wardrobes",
+          "Kitchen cupboards",
+          "Home renovations"
+        ],
+        "sameAs": [
+          "https://orcaprojects.co.za/"
+        ]
+      }
+      </script>
       <link rel="preconnect" href="https://fonts.googleapis.com">
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
       <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">

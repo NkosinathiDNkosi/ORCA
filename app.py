@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, session
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, Response
 import sqlite3
 import os
 import re
@@ -159,6 +159,46 @@ def home():
     return render_template("index.html", success=success, error=error)
 
 
+
+
+@app.route("/robots.txt")
+def robots_txt():
+    robots = """User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /dashboard
+Disallow: /bin
+
+Sitemap: https://orcaprojects.co.za/sitemap.xml
+"""
+    return Response(robots, mimetype="text/plain")
+
+
+@app.route("/sitemap.xml")
+def sitemap_xml():
+    today = datetime.utcnow().strftime("%Y-%m-%d")
+    pages = [
+        {"loc": "https://orcaprojects.co.za/", "lastmod": today, "priority": "1.0"}
+    ]
+
+    xml_pages = "".join(
+        f"""
+  <url>
+    <loc>{page['loc']}</loc>
+    <lastmod>{page['lastmod']}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>{page['priority']}</priority>
+  </url>"""
+        for page in pages
+    )
+
+    sitemap = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">{xml_pages}
+</urlset>
+"""
+    return Response(sitemap, mimetype="application/xml")
+
 @app.route("/booked-slots")
 def booked_slots():
     selected_date = request.args.get("date", "").strip()
@@ -315,7 +355,7 @@ def dashboard():
     return render_template("dashboard.html", appointments=appointments)
 
 
-@app.route("/admin/trash")
+@app.route("/bin")
 def bin_page():
     if not admin_required():
         return redirect(url_for("login"))
@@ -330,11 +370,6 @@ def bin_page():
     conn.close()
 
     return render_template("bin.html", appointments=appointments)
-
-
-@app.route("/bin")
-def old_bin_redirect():
-    return redirect(url_for("bin_page"))
 
 
 @app.route("/restore-appointment/<int:appointment_id>", methods=["POST"])

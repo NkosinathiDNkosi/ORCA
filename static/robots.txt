@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /login
+Disallow: /dashboard
+Disallow: /bin
+
+Sitemap: https://orcaprojects.co.za/sitemap.xml
