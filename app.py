@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, jsonify, session, Response
+from flask import Flask, render_template, request, redirect, url_for, jsonify, session, Response, send_from_directory
 import sqlite3
 import os
 import re
@@ -148,6 +148,16 @@ def is_valid_date(date_str):
 def admin_required():
     return session.get("admin_logged_in") is True
 
+# ============================================================
+# FAVICON
+# ============================================================
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(
+        app.static_folder,
+        "favicon.ico",
+        mimetype="image/vnd.microsoft.icon"
+    )
 
 # ============================================================
 # PUBLIC ROUTES
