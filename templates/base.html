@@ -1,67 +1,100 @@
 <!DOCTYPE html>
   <html lang="en">
-    <head>
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>
+  
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>
         {% block title %}
-          ORCA Projects | Built-in Cupboards, TV Units & Home Renovations in Steelpoort
+            ORCA Projects | Built-in Cupboards, Kitchens, TV Units & Home Renovations | Steelpoort
         {% endblock %}
-      </title>
-      <meta name="description" content="ORCA Projects designs and installs built-in cupboards, TV units, feature walls, wardrobes, kitchens and home renovation finishes in Steelpoort, Burgersfort and surrounding Limpopo areas." />
-      <meta name="keywords" content="ORCA Projects, built-in cupboards Steelpoort, TV units Steelpoort, feature walls Steelpoort, wardrobes Burgersfort, kitchen cupboards Limpopo, home renovations Steelpoort" />
-      <meta name="robots" content="index, follow" />
-      <link rel="canonical" href="https://orcaprojects.co.za/" />
-      <meta name="theme-color" content="#11100e" />
+    </title>
 
-      <meta property="og:type" content="website" />
-      <meta property="og:title" content="ORCA Projects | Built-in Cupboards, TV Units & Renovations in Steelpoort" />
-      <meta property="og:description" content="Custom carpentry, TV units, feature walls, fitted wardrobes, kitchens and premium home renovation finishes around Steelpoort, Burgersfort and Limpopo." />
-      <meta property="og:url" content="https://orcaprojects.co.za/" />
-      <meta property="og:image" content="{{ url_for('static', filename='hero.jpg', _external=True) }}" />
-      <meta property="og:site_name" content="ORCA Projects" />
+    <!-- SEO -->
+    <meta name="description" content="ORCA Projects designs and installs built-in cupboards, TV units, feature walls, wardrobes, kitchens and home renovation finishes in Steelpoort, Burgersfort and surrounding Limpopo areas.">
+    <meta name="keywords" content="ORCA Projects, built-in cupboards Steelpoort, TV units Steelpoort, feature walls Steelpoort, wardrobes Burgersfort, kitchen cupboards Limpopo, home renovations Steelpoort">
+    <meta name="author" content="ORCA Projects">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+    <meta name="theme-color" content="#11100e">
+    <meta name="format-detection" content="telephone=no">
 
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content="ORCA Projects | Built-in Cupboards & Renovations in Steelpoort" />
-      <meta name="twitter:description" content="Built-in cupboards, TV units, feature walls, fitted wardrobes and home renovation finishes in Steelpoort, Burgersfort and Limpopo." />
-      <meta name="twitter:image" content="{{ url_for('static', filename='hero.jpg', _external=True) }}" />
+    <link rel="canonical" href="https://orcaprojects.co.za/">
 
-      <link rel="icon" href="{{ url_for('static', filename='logo.jpg') }}" />
-      <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "HomeAndConstructionBusiness",
-        "name": "ORCA Projects",
-        "url": "https://orcaprojects.co.za/",
-        "logo": "{{ url_for('static', filename='logo.jpg', _external=True) }}",
-        "image": "{{ url_for('static', filename='hero.jpg', _external=True) }}",
-        "description": "ORCA Projects provides custom carpentry, built-in cupboards, TV units, feature walls, fitted wardrobes, kitchens and home renovation finishes in Steelpoort, Burgersfort and surrounding Limpopo areas.",
-        "telephone": "+27827246713",
-        "areaServed": [
-          "Steelpoort",
-          "Burgersfort",
-          "Limpopo",
-          "Sekhukhune"
-        ],
-        "serviceType": [
-          "Built-in cupboards",
-          "TV units",
-          "Feature walls",
-          "Wardrobes",
-          "Kitchen cupboards",
-          "Home renovations"
-        ],
-        "sameAs": [
-          "https://orcaprojects.co.za/"
-        ]
-      }
-      </script>
-      <link rel="preconnect" href="https://fonts.googleapis.com">
-      <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    </head>
+    <!-- Favicons -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='apple-touch-icon.png') }}">
+    <link rel="manifest" href="{{ url_for('static', filename='site.webmanifest') }}">
+
+    <!-- Sitemap -->
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="ORCA Projects | Built-in Cupboards, Kitchens, TV Units & Home Renovations">
+    <meta property="og:description" content="Custom carpentry, TV units, feature walls, fitted wardrobes, kitchens and premium home renovation finishes around Steelpoort, Burgersfort and Limpopo.">
+    <meta property="og:url" content="https://orcaprojects.co.za/">
+    <meta property="og:image" content="{{ url_for('static', filename='hero.jpg', _external=True) }}">
+    <meta property="og:site_name" content="ORCA Projects">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="ORCA Projects | Built-in Cupboards & Renovations">
+    <meta name="twitter:description" content="Built-in cupboards, TV units, feature walls, wardrobes, kitchens and premium home renovations in Steelpoort and surrounding areas.">
+    <meta name="twitter:image" content="{{ url_for('static', filename='hero.jpg', _external=True) }}">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context":"https://schema.org",
+      "@type":"HomeAndConstructionBusiness",
+      "name":"ORCA Projects",
+      "url":"https://orcaprojects.co.za/",
+      "logo":"{{ url_for('static', filename='logo.jpg', _external=True) }}",
+      "image":"{{ url_for('static', filename='hero.jpg', _external=True) }}",
+      "description":"ORCA Projects provides custom carpentry, built-in cupboards, TV units, feature walls, fitted wardrobes, kitchens and home renovation finishes in Steelpoort, Burgersfort and surrounding Limpopo areas.",
+      "telephone":"+27827246713",
+      "areaServed":[
+        "Steelpoort",
+        "Burgersfort",
+        "Limpopo",
+        "Sekhukhune"
+      ],
+      "serviceType":[
+        "Built-in cupboards",
+        "TV units",
+        "Feature walls",
+        "Wardrobes",
+        "Kitchen cupboards",
+        "Home renovations"
+      ],
+      "sameAs":[
+        "https://orcaprojects.co.za/"
+      ]
+    }
+    </script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link rel="preload"
+          href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+          as="style">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@500;600;700&display=swap"
+          rel="stylesheet">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <!-- Icons -->
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+</head>
     <body>
       {% block content %}
       {% endblock %}
