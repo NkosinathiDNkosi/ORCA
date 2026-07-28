@@ -90,3 +90,75 @@ statsObserver.observe(trustRow)
 else{
   statNumbers.forEach((el,index)=>setTimeout(()=>animateStat(el),index*180));
 }
+
+// Load videos and Facebook only when their activity area is close to view.
+const lazyMedia=document.querySelectorAll('.lazy-video, .lazy-embed');
+function loadMedia(el){
+  if(el.dataset.loaded==='true') return;
+  el.dataset.loaded='true';
+  if(el.matches('video')&&el.dataset.src){
+    el.src=el.dataset.src;
+    el.load();
+    if(el.closest('.activity-slide.is-active')) el.play().catch(()=>{});
+  }
+  if(el.classList.contains('lazy-embed')&&el.dataset.embedSrc){
+    const frame=document.createElement('iframe');
+    frame.src=el.dataset.embedSrc;
+    frame.title='ORCA Facebook activity';
+    frame.loading='lazy';
+    frame.allow='autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share';
+    frame.allowFullscreen=true;
+    el.replaceChildren(frame);
+  }
+}
+if('IntersectionObserver' in window){
+  const mediaObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        loadMedia(entry.target);
+        mediaObserver.unobserve(entry.target);
+      }
+    });
+  },{rootMargin:'300px 0px'});
+  lazyMedia.forEach(el=>mediaObserver.observe(el));
+}else{
+  lazyMedia.forEach(loadMedia);
+}
+
+// Reusable touch-friendly sliders for social posts and new project images.
+document.querySelectorAll('[data-slider]').forEach(slider=>{
+  const slides=[...slider.querySelectorAll('.activity-slide')];
+  const count=slider.querySelector('[data-count]');
+  let current=0;
+  let startX=0;
+  let timer;
+  const show=index=>{
+    slides[current]?.classList.remove('is-active');
+    slides[current]?.querySelector('video')?.pause();
+    current=(index+slides.length)%slides.length;
+    const active=slides[current];
+    active.classList.add('is-active');
+    const video=active.querySelector('video');
+    if(video){
+      loadMedia(video);
+      video.play().catch(()=>{});
+    }
+    active.querySelectorAll('.lazy-embed').forEach(loadMedia);
+    if(count) count.textContent=`${current+1} / ${slides.length}`;
+  };
+  slider.querySelector('[data-prev]')?.addEventListener('click',()=>show(current-1));
+  slider.querySelector('[data-next]')?.addEventListener('click',()=>show(current+1));
+  slider.addEventListener('touchstart',event=>{startX=event.changedTouches[0].clientX},{passive:true});
+  slider.addEventListener('touchend',event=>{
+    const distance=event.changedTouches[0].clientX-startX;
+    if(Math.abs(distance)>45) show(current+(distance<0?1:-1));
+  },{passive:true});
+  if(slider.dataset.autoplay==='true'&&!prefersReducedMotion){
+    const start=()=>{timer=setInterval(()=>show(current+1),5000)};
+    const stop=()=>clearInterval(timer);
+    slider.addEventListener('mouseenter',stop);
+    slider.addEventListener('mouseleave',start);
+    start();
+  }
+  show(0);
+});
