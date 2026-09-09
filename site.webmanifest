@@ -1,0 +1,21 @@
+{
+  "name": "ORCA Projects",
+  "short_name": "ORCA",
+  "description": "Built-in cupboards, TV units, kitchens and home renovations in Steelpoort and surrounding areas.",
+  "theme_color": "#11100e",
+  "background_color": "#11100e",
+  "display": "standalone",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/static/favicon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/static/favicon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
