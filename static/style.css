@@ -465,6 +465,15 @@ img{
   height: 100%;
   object-fit: cover
 }
+.project-activity-image{
+  display: block;
+  border: 0;
+  background: #211914
+}
+.project-activity-image[controls]{
+  width: 100%;
+  height: 100%;
+}
 .social-badge, .social-play, .tiktok-feature strong{
   position: absolute;
   z-index: 2
