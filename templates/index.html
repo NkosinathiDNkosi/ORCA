@@ -140,35 +140,8 @@
       </article>
     </div>
   </section>
-  <section class="showcase" id="work">
-    <div class="showcase-text">
-      <p class="eyebrow">
-        Featured look
-      </p>
-      <h2>
-        From plain wall to statement piece.
-      </h2>
-      <p>
-        We focus on proportions, lighting, material matching and finish quality so the final result feels expensive without looking overdone.
-      </p>
-      <a class="btn primary" href="#booking">
-      Start Your Project
-      </a>
-    </div>
-    <div class="phone-gallery">
-        <img src="{{ url_for('static', filename='img1.jpg') }}" alt="ORCA project image" loading="lazy" decoding="async">
-      <img src="{{ url_for('static', filename='img8.jpg') }}" alt="ORCA project image" loading="lazy" decoding="async">
-      <img src="{{ url_for('static', filename='gallery2.jpg') }}" alt="ORCA project image" loading="lazy" decoding="async">
-    </div>
-  </section>
-  <section class="section gallery-band">
-    <div class="gallery-track">
-      {% for img in ['gallery1.jpg','gallery2.jpg','gallery3.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'] %}
-        <img src="{{ url_for('static', filename=img) }}" alt="ORCA carpentry gallery image" loading="lazy" decoding="async">
-      {% endfor %}
-    </div>
-  </section>
-  <section class="section activity" id="social-activity">
+
+ <section class="section activity" id="social-activity">
     <div class="section-head activity-heading">
       <div>
         <p class="eyebrow dark">Fresh from the workshop</p>
@@ -256,6 +229,38 @@
       </article>
     </div>
   </section>
+
+  <section class="showcase" id="work">
+    <div class="showcase-text">
+      <p class="eyebrow">
+        Featured look
+      </p>
+      <h2>
+        From plain wall to statement piece.
+      </h2>
+      <p>
+        We focus on proportions, lighting, material matching and finish quality so the final result feels expensive without looking overdone.
+      </p>
+      <a class="btn primary" href="#booking">
+      Start Your Project
+      </a>
+    </div>
+    <div class="phone-gallery">
+        <img src="{{ url_for('static', filename='img1.jpg') }}" alt="ORCA project image" loading="lazy" decoding="async">
+      <img src="{{ url_for('static', filename='img8.jpg') }}" alt="ORCA project image" loading="lazy" decoding="async">
+      <img src="{{ url_for('static', filename='gallery2.jpg') }}" alt="ORCA project image" loading="lazy" decoding="async">
+    </div>
+  </section>
+  <section class="section gallery-band">
+    <div class="gallery-track">
+      {% for img in ['gallery1.jpg','gallery2.jpg','gallery3.jpg','img2.jpg','img3.jpg','img4.jpg','img5.jpg','img6.jpg'] %}
+        <img src="{{ url_for('static', filename=img) }}" alt="ORCA carpentry gallery image" loading="lazy" decoding="async">
+      {% endfor %}
+    </div>
+  </section>
+
+ 
+
   <section class="section process" id="process">
     <div class="section-head">
       <p class="eyebrow dark">
