@@ -151,6 +151,42 @@
     </div>
 
     <div class="activity-grid">
+      <article class="activity-panel project-panel">
+        <div class="activity-panel-head">
+          <div>
+            <span class="panel-kicker">Recent work</span>
+            <h3>New project gallery</h3>
+          </div>
+          <span class="swipe-hint"><i class="fa-solid fa-hand-pointer"></i> Swipe</span>
+        </div>
+        <div class="activity-slider" data-slider data-autoplay="true">
+          <div class="activity-slides">
+            {% set total_projects = gallery_items|length + legacy_gallery|length %}
+            {% for item in gallery_items %}
+              <div class="activity-slide{% if loop.first %} is-active{% endif %}">
+                {% if item['media_type'] == 'video' %}
+                  <video class="project-activity-image" controls muted playsinline preload="metadata" src="{{ url_for('static', filename='uploads/gallery/' ~ item['filename']) }}"></video>
+                {% else %}
+                  <img class="project-activity-image" src="{{ url_for('static', filename='uploads/gallery/' ~ item['filename']) }}" alt="{{ item['title'] or 'Recent ORCA carpentry project' }}" loading="lazy" decoding="async">
+                {% endif %}
+                {% if item['title'] %}<span class="project-caption">{{ item['title'] }}</span>{% else %}<span class="project-caption">Latest ORCA work</span>{% endif %}
+              </div>
+            {% endfor %}
+            {% for item in legacy_gallery %}
+              <div class="activity-slide{% if not gallery_items and loop.first %} is-active{% endif %}">
+                <img class="project-activity-image" src="{{ url_for('static', filename=item['filename']) }}" alt="{{ item['title'] }} {{ '%02d'|format(loop.index) }}" loading="lazy" decoding="async">
+                <span class="project-caption">Recent ORCA installation <b>{{ '%02d'|format(loop.index) }}</b></span>
+              </div>
+            {% endfor %}
+          </div>
+          <div class="slider-controls">
+            <button type="button" data-prev aria-label="Previous project"><i class="fa-solid fa-arrow-left"></i></button>
+            <span data-count>1 / {{ total_projects }}</span>
+            <button type="button" data-next aria-label="Next project"><i class="fa-solid fa-arrow-right"></i></button>
+          </div>
+        </div>
+      </article>
+
       <article class="activity-panel social-panel">
         <div class="activity-panel-head">
           <div>
@@ -192,41 +228,7 @@
         </div>
       </article>
 
-      <article class="activity-panel project-panel">
-        <div class="activity-panel-head">
-          <div>
-            <span class="panel-kicker">Recent work</span>
-            <h3>New project gallery</h3>
-          </div>
-          <span class="swipe-hint"><i class="fa-solid fa-hand-pointer"></i> Swipe</span>
-        </div>
-        <div class="activity-slider" data-slider data-autoplay="true">
-          <div class="activity-slides">
-            {% set total_projects = gallery_items|length + legacy_gallery|length %}
-            {% for item in gallery_items %}
-              <div class="activity-slide{% if loop.first %} is-active{% endif %}">
-                {% if item['media_type'] == 'video' %}
-                  <video class="project-activity-image" controls muted playsinline preload="metadata" src="{{ url_for('static', filename='uploads/gallery/' ~ item['filename']) }}"></video>
-                {% else %}
-                  <img class="project-activity-image" src="{{ url_for('static', filename='uploads/gallery/' ~ item['filename']) }}" alt="{{ item['title'] or 'Recent ORCA carpentry project' }}" loading="lazy" decoding="async">
-                {% endif %}
-                {% if item['title'] %}<span class="project-caption">{{ item['title'] }}</span>{% else %}<span class="project-caption">Latest ORCA work</span>{% endif %}
-              </div>
-            {% endfor %}
-            {% for item in legacy_gallery %}
-              <div class="activity-slide{% if not gallery_items and loop.first %} is-active{% endif %}">
-                <img class="project-activity-image" src="{{ url_for('static', filename=item['filename']) }}" alt="{{ item['title'] }} {{ '%02d'|format(loop.index) }}" loading="lazy" decoding="async">
-                <span class="project-caption">Recent ORCA installation <b>{{ '%02d'|format(loop.index) }}</b></span>
-              </div>
-            {% endfor %}
-          </div>
-          <div class="slider-controls">
-            <button type="button" data-prev aria-label="Previous project"><i class="fa-solid fa-arrow-left"></i></button>
-            <span data-count>1 / {{ total_projects }}</span>
-            <button type="button" data-next aria-label="Next project"><i class="fa-solid fa-arrow-right"></i></button>
-          </div>
-        </div>
-      </article>
+      
     </div>
   </section>
 
